@@ -5,12 +5,22 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import React from "react";
+import PropTypes from "prop-types";
+import { useStaticQuery, graphql } from "gatsby";
+import styled from 'styled-components';
+import Archive from "./archive"
 
 import Header from "./header"
 import "./layout.css"
+
+const MainLayout = styled.main`
+max-width: 90%;
+margin: 0 auto;
+display: grid;
+grid-template-columns: 3fr 1fr;
+grid-gap: 40px;
+`
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -18,6 +28,7 @@ const Layout = ({ children }) => {
       site {
         siteMetadata {
           title
+          description
         }
       }
     }
@@ -25,22 +36,20 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0px 1.0875rem 1.45rem`,
-          paddingTop: 0,
-        }}
-      >
-        <main>{children}</main>
+      <Header
+        siteTitle={data.site.siteMetadata.title}
+        siteDescription={data.site.siteMetadata.description}
+      />
+      {/* <p>{data.site.siteMetadata.description}</p> */}
+      <MainLayout>
+        <div>{children}</div>
+        <Archive/>
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
-      </div>
+      </MainLayout>
     </>
   )
 }
