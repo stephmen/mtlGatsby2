@@ -1,28 +1,22 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
-import React from "react";
-import PropTypes from "prop-types";
-import { useStaticQuery, graphql } from "gatsby";
-import styled from 'styled-components';
+import React from "react"
+import PropTypes from "prop-types"
+import Img from "gatsby-image"
+import { useStaticQuery, graphql } from "gatsby"
+import styled from "styled-components"
 import Archive from "./archive"
 
 import Header from "./header"
 import "./layout.css"
 
 const MainLayout = styled.main`
-max-width: 90%;
-margin: 0 auto;
-display: grid;
-grid-template-columns: 3fr 1fr;
-grid-gap: 40px;
+  max-width: 90%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 40px;
 `
 
-const Layout = ({ children }) => {
+const Layout = ({ children, location }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -31,19 +25,23 @@ const Layout = ({ children }) => {
           description
         }
       }
+      file(relativePath: { regex: "/bg/" }) {
+        childImageSharp {
+          fluid(maxWidth: 1000) {
+            ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
     }
   `)
 
   return (
     <>
-      <Header
-        siteTitle={data.site.siteMetadata.title}
-        siteDescription={data.site.siteMetadata.description}
-      />
-      {/* <p>{data.site.siteMetadata.description}</p> */}
+      <Header siteTitle={data.site.siteMetadata.title} />
+      { location.pathname === '/' && <Img fluid={data.file.childImageSharp.fluid}/> }
       <MainLayout>
         <div>{children}</div>
-        <Archive/>
+        <Archive />
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
