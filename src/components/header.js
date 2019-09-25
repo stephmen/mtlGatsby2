@@ -2,8 +2,8 @@ import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
 import styled from "styled-components"
-//import logo from "../images/logo.svg"
-import logo2 from "../images/GatsbyMTL.png"
+import logo from "../images/logo.svg"
+//import logo2 from "../images/GatsbyMTL.png"
 
 const HeaderWrapper = styled.div`
   background: #524763;
@@ -33,7 +33,7 @@ const Header = ({ siteTitle, siteDescription }) => (
               style={{
                 width: "125px",
               }}
-              src={logo2}
+              src={logo}
               alt="gatsby Logo"
             />
           </Link>
