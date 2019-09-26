@@ -7,6 +7,7 @@ module.exports = {
   plugins: [
 
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-sitemap`,
     `gatsby-transformer-remark`,
     `gatsby-plugin-styled-components`,
     `gatsby-transformer-sharp`,
@@ -37,7 +38,8 @@ module.exports = {
         name: `post`
       }
     },
-    `gatsby-plugin-netlify`
+    `gatsby-plugin-netlify-cms`,
+    `gatsby-plugin-netlify`,
 
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
